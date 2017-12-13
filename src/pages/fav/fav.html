@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Favorites
+    </ion-title>
+    <ion-buttons end>
+      <!--<button ion-button icon-only (click)="newContact()">-->
+        <!--<ion-icon name="add"></ion-icon>-->
+      <!--</button>-->
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-list>
+    <ion-item-sliding *ngFor="let contact of contacts | async" >
+      <button ion-item  (click)="viewContact(contact)" >
+        <ion-icon  color="danger" [name]="(contact.favorite) ? 'heart' : '#'" item-end></ion-icon>
+        {{contact.firstName}} {{contact.lastName}}
+      </button>
+      <ion-item-options side="left">
+        <button ion-button clear icon-only  (click)="editContact(contact)">
+          <ion-icon  name="create"></ion-icon>
+        </button>
+        <button ion-button clear icon-only  (click)="deleteContact(contact)">
+          <ion-icon color="danger" name="trash"></ion-icon>
+        </button>
+
+      </ion-item-options>
+
+    </ion-item-sliding>
+
+  </ion-list>
+
+</ion-content>

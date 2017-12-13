@@ -2,16 +2,14 @@ import { Component } from '@angular/core';
 import {NavController, IonicPage, AlertController, ToastController} from 'ionic-angular';
 import {DataProvider} from "../../providers/data/data";
 import {InfoPage} from "../info/info";
-import {FavPage} from "../fav/fav";
 
 
 @IonicPage()
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
-
+  selector: 'page-fav',
+  templateUrl: 'fav.html',
 })
-export class HomePage {
+export class FavPage {
 
   contacts:any;
 
@@ -19,15 +17,14 @@ export class HomePage {
     this.contacts = this.dataService.contactList;
 
   }
-
-
+  
 //   ionViewDidLoad() {
 //     this.dataService.sortNames()
 // }
 
 
 
-  
+
   deleteContact(contact) {
     let confirm = this.alertCtrl.create({
       title: 'Delete ' + contact.firstName + ' ' + contact.lastName + '?',
@@ -100,71 +97,61 @@ export class HomePage {
 
 
 
-  newContact():void {
-    let prompt = this.alertCtrl.create({
-      title: 'New contact',
-      inputs: [
-        {
-          name: 'firstName',
-          placeholder: 'First Name'
-        },
-        {
-          name: 'lastName',
-          placeholder: 'Last Name'
-        },
-        {
-          name: 'number',
-          placeholder: 'Phone Number'
-        },
-        {
-          name: 'email',
-          placeholder: 'Email'
-        },
-        {
-          name: 'image',
-          placeholder: 'Photo URL'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Save',
-          handler: data => {
-            data["favorite"] = false;
-            if(!data["image"]) {
-              data["image"] = 'https://vignette3.wikia.nocookie.net/tumblr-survivor-athena/images/7/7a/Blank_Avatar.png/revision/latest?cb=20161204161729'
-            }
-            this.dataService.addNewContact(data);
-            console.log('Saved clicked');
-              let toast = this.toastCtrl.create({
-                message: 'Contact saved',
-                duration: 3000
-              });
-              toast.present();
-
-          }
-        }
-      ]
-    });
-    prompt.present();
-      
-    
-  }
+  // newContact():void {
+  //   let prompt = this.alertCtrl.create({
+  //     title: 'New contact',
+  //     inputs: [
+  //       {
+  //         name: 'firstName',
+  //         placeholder: 'First Name'
+  //       },
+  //       {
+  //         name: 'lastName',
+  //         placeholder: 'Last Name'
+  //       },
+  //       {
+  //         name: 'number',
+  //         placeholder: 'Phone Number'
+  //       },
+  //       {
+  //         name: 'email',
+  //         placeholder: 'Email'
+  //       },
+  //       {
+  //         name: 'image',
+  //         placeholder: 'Photo URL'
+  //       }
+  //     ],
+  //     buttons: [
+  //       {
+  //         text: 'Cancel',
+  //         handler: data => {
+  //           console.log('Cancel clicked');
+  //         }
+  //       },
+  //       {
+  //         text: 'Save',
+  //         handler: data => {
+  //           data["favorite"] = false;
+  //           this.dataService.addNewContact(data);
+  //           console.log('Saved clicked');
+  //           let toast = this.toastCtrl.create({
+  //             message: 'Contact saved',
+  //             duration: 3000
+  //           });
+  //           toast.present();
+  //
+  //         }
+  //       }
+  //     ]
+  //   });
+  //   prompt.present();
+  //
+  //
+  // }
 
   viewContact(contact):void {
     this.navCtrl.push(InfoPage, contact);
   }
 
-  favPage() {
-    this.navCtrl.push(FavPage);
-  }
-
-
 }
-
-

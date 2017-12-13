@@ -1,14 +1,62 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Contacts
     </ion-title>
+    <ion-buttons end>
+
+      <button ion-button icon-only (click)="newContact()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <ion-list>
+    <ion-list-header>
+      Favorites
+    </ion-list-header>
+    <ion-item-sliding *ngFor="let contact of contacts | async" >
+      <button ion-item *ngIf="contact.favorite" (click)="viewContact(contact)">
+        <ion-icon color="danger" [name]="(contact.favorite) ? 'heart' : '#'" item-end></ion-icon>
+        {{contact.firstName}} {{contact.lastName}}
+      </button>
+      <ion-item-options side="left">
+        <button ion-button clear icon-only  (click)="editContact(contact)">
+          <ion-icon  name="create"></ion-icon>
+        </button>
+        <button ion-button clear icon-only  (click)="deleteContact(contact)">
+          <ion-icon color="danger" name="trash"></ion-icon>
+        </button>
+
+      </ion-item-options>
+
+    </ion-item-sliding>
+
+  </ion-list>
+<br/>
+  <ion-list>
+    <ion-list-header>
+      All Contacts
+    </ion-list-header>
+    <ion-item-sliding *ngFor="let contact of contacts | async" >
+      <button ion-item  (click)="viewContact(contact)">
+        <ion-icon color="danger" [name]="(contact.favorite) ? 'heart' : '#'" item-end></ion-icon>
+      {{contact.firstName}} {{contact.lastName}}
+      </button>
+      <ion-item-options side="left">
+        <button ion-button clear icon-only  (click)="editContact(contact)">
+          <ion-icon  name="create"></ion-icon>
+        </button>
+        <button ion-button clear icon-only  (click)="deleteContact(contact)">
+          <ion-icon color="danger" name="trash"></ion-icon>
+        </button>
+
+      </ion-item-options>
+
+    </ion-item-sliding>
+
+  </ion-list>
+
 </ion-content>
